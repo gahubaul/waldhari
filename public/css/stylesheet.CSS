@@ -1,0 +1,33 @@
+html{
+    margin: 0px;
+    padding: 0px;
+}
+
+body {                              /* ICI je met du style au body*/
+    border-style: double; 
+    border-width: 10px; 
+    border-color: black; 
+    width: calc(100vw - 20px);      /* ICI je met la taille en grand en prenant en compte les bordur  (10 px * 2)*/
+    height: calc(100vh - 20px);     /* ICI je met la taille en grand en prenant en compte les bordur  (10 px * 2)*/
+    margin: 0px;
+    text-align: center;
+}
+
+body > h1 {                         /* ICI je met une marge en bas de l'element h1 contenu dans le parent body*/
+    margin-bottom: 65px;
+}
+
+div#face {                          /* ICI je met du css pour une div qui a un id egale a face*/
+    width: 400px;
+    height: 400px;
+    background-image: url('https://images.unsplash.com/photo-1537816042568-af3c8020f7cc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=848ac0c38bbd20fcf8ee105bd760c5d5&auto=format&fit=crop&w=1234&q=80');
+    display: inline-block;
+    background-size: cover;
+    background-position-y: center;
+    box-shadow: 1px 1px 10px black;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+
+/*         Pour des images / photos d'artiste libre de droit vas sur    https://unsplash.com/     */
