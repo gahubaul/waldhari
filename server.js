@@ -1,17 +1,10 @@
 const express = require('express')
-//var session = require('cookie-session');
 const multer = require('multer')
-
 const fileUpload = require('express-fileupload');
-
 const upload = multer()
-//var upload = multer({ dest: 'uploads/' });
 const app = express()
-
 const port = process.env.PORT || 8080;
 
-//var bodyParser = require('body-parser'); // Charge le middleware de gestion des paramètres
-// var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 function generateHTML (res) {
     const titi = {
@@ -33,45 +26,37 @@ function generateHTML (res) {
     return (titi)
 }
 
-//app.use(session({secret: 'todotopsecret'}));
+app.use(fileUpload())
+app.use(express.static(__dirname + '/public'))
 
-app.use(fileUpload());
+app.all('*', (req, res) => {
+    const path = req.params["0"]
+    const query = req.query
 
-app.get('/', function (req, res) {
-    app.use(express.static(__dirname + '/public')); // ajouter app use pour dire ou se trouve les static de la page. Ici on vas chercher dans le dossier public
-    res.render('page.ejs')
+    switch (path) {
+        case '/':
+            console.log('main page') // ajouter app use pour dire ou se trouve les static de la page. Ici on vas chercher dans le dossier public
+            res.render('page.ejs')
+            break;
+         case '/test':
+            const toto = generateHTML(query.var1)
+            res.send(toto)
+            break;
+        case '/upload':
+            if (!req.files)
+                return res.status(400).send('No files were uploaded.')
+            let sampleFile = req.files.sampleFile
+            sampleFile.mv(__dirname + '/Notes-unparsed/' + req.files.sampleFile.name, function(err) {
+                if (err)
+                return res.status(500).send(err)
+                res.send('File uploaded!')
+            })
+            break
+        default:
+            console.log('page not found')
+            res.render('404_error_template.ejs')
+            break;
+    }
 })
 
-// app.get('/tab', function(req, res) {
-//     var toBeParsed=Notes Sapiens.getElementsByClassName('noteText')
-// })
-
-app.get('/test', function (req, res) {
-    const toto = generateHTML(req.query.var1)
-    // res.send(process.env)
-    res.send(toto)
-    console.log('Voila ma couille')
-})
-
-app.post('/upload', function(req, res) {
-    console.log(req)
-    console.log(req.read)
-    if (!req.files)
-        return res.status(400).send('No files were uploaded.');
-
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.file_link;
-
-    // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv('/Notes-unparsed/', function(err) {
-        if (err)
-        return res.status(500).send(err);
-
-        res.send('File uploaded!');
-    })
-})
-
-//un fichier ne peut pas être passé en GET, qui correspond à l'encodage de texte dans l'URL. On utilise donc POST
-// aller voir https://scotch.io/tutorials/express-file-uploads-with-multer
-
-app.listen(port);
+app.listen(port)
