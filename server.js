@@ -11,12 +11,12 @@ const fs = require('file-system')
 
 
 app.use(fileUpload())
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public')) // static CSS
+app.use(express.static(__dirname + '/views')) // static HTML
+
 
 app.get('/', function(req, res) {
-    console.log(__dirname)
-    console.log(__dirname + '/public') // ajouter app use pour dire ou se trouve les static de la page. Ici on vas chercher dans le dossier public
-    res.render('page.ejs')
+    res.sendFile('page.ejs')
 });
 
 app.get('/test', function(req, res) {
@@ -36,7 +36,7 @@ app.post('/upload', function(req, res) {
         console.log({err})
         if (err)
             return res.status(500).send(err)
-        res.render('page_upload.ejs')
+        res.sendFile('page_upload.ejs')
     })
 })
 
@@ -57,7 +57,8 @@ app.get('/read', (req, res) => {
 
 app.use(function(req, res, next){
     res.setHeader('Content-Type', 'text/html')
-    res.status(404).send('Page introuvable !');
+    res.status(404)
+    res.sendFile('404_error_template.ejs');
 });
 
 app.listen(port);
