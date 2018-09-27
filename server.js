@@ -20,12 +20,10 @@ app.get('/', function(req, res) {
 });
 
 app.get('/test', function(req, res) {
-    res.setHeader('Content-Type', 'text/html')
     res.send('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
 });
 
 app.get('/home', function(req, res) {
-    res.setHeader('Content-Type', 'text/html')
     res.send('Hé ho, c\'est privé ici !');
 });
 
@@ -36,7 +34,6 @@ app.post('/upload', function(req, res) {
     console.log(__dirname)
     sampleFile.mv(__dirname + '/Notes-unparsed/' + req.files.sampleFile.name, function(err) {
         console.log({err})
-        res.setHeader('Content-Type', 'text/html')
         if (err)
             return res.status(500).send(err)
         res.render('page_upload.ejs')
@@ -44,7 +41,6 @@ app.post('/upload', function(req, res) {
 })
 
 app.get('/read', (req, res) => {
-    res.setHeader('Content-Type', 'text/html')
     fs.readFile(__dirname + '/Notes-unparsed/' + 'Notes Sapiens.html', 'utf8', function(err, html){
         if (!err) {
             // const dom = parser.parseFromString(html, 'text/html');
