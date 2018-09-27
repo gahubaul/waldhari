@@ -5,7 +5,7 @@ const upload = multer()
 const app = express()
 const port = process.env.PORT || 8080;
 const DomParser = require('dom-parser');
-const parser = new DomParser();
+// const parser = new DomParser();
 const fs = require('file-system')
 
 
@@ -48,7 +48,7 @@ app.get('/read', (req, res) => {
     res.setHeader('Content-Type', 'text/html')
     fs.readFile(__dirname + '/Notes-unparsed/' + 'Notes Sapiens.html', 'utf8', function(err, html){
         if (!err) {
-            const dom = parser.parseFromString(html, 'text/html');
+            // const dom = parser.parseFromString(html, 'text/html');
             const tab = html.match(/noteText'>(.+)</gm)
             const test = tab.map(o => o.match(/>(.+)</gm)[0].match(/[^<>]+/gm)[0])
             let body = ''
