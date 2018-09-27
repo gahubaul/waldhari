@@ -15,8 +15,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(req, res) {
     console.log(__dirname)
-    console.log(__dirname + '/public')
-    res.setHeader('Content-Type', 'text/html') // ajouter app use pour dire ou se trouve les static de la page. Ici on vas chercher dans le dossier public
+    console.log(__dirname + '/public') // ajouter app use pour dire ou se trouve les static de la page. Ici on vas chercher dans le dossier public
     res.render('page.ejs')
 });
 
