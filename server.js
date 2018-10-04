@@ -20,6 +20,7 @@ console.log(__dirname + '/public')
 
 app.get('/', function(req, res) {
     // res.render('page.ejs')
+    
     lib.sendFile(req, res, '/views/page.ejs')
 })
 
