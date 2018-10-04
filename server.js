@@ -12,11 +12,11 @@ const lib = require(__dirname + '/module.js')
 
 
 app.use(fileUpload())
-app.use(express.static(__dirname + '/public')) // static CSS
+app.use('/public', express.static(__dirname + '/public')) // static CSS
 app.use(express.static(__dirname + '/views')) // static HTML
 
-app.use('/public', express.static(__dirname + '/public'))
-
+console.log(__dirname + '/views')
+console.log(__dirname + '/public')
 
 app.get('/', function(req, res) {
     // res.render('page.ejs')
