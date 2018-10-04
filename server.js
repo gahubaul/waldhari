@@ -15,9 +15,11 @@ app.use(fileUpload())
 app.use(express.static(__dirname + '/public')) // static CSS
 app.use(express.static(__dirname + '/views')) // static HTML
 
+app.use('/public', express.static(__dirname + '/public'))
 
 
 app.get('/', function(req, res) {
+    // res.render('page.ejs')
     lib.sendFile(req, res, '/views/page.ejs')
 })
 
@@ -35,7 +37,6 @@ app.post('/upload', function(req, res) {
     let sampleFile = req.files.sampleFile
     console.log(__dirname)
     sampleFile.mv(__dirname + '/Notes-unparsed/' + req.files.sampleFile.name, function(err) {
-        console.log({err})
         if (err)
             return res.status(500).send(err)
         lib.sendFile(req, res, '/views/page_parsing_success.ejs')
