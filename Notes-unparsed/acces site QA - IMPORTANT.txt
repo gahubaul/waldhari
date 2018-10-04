@@ -1,0 +1,52 @@
+Serveur FTP :
+ftp://oyststaggb@ftp.cluster021.hosting.ovh.net:21/ 
+
+Chemin du répertoire home :
+/home/oyststaggb
+
+Login :
+oyststaggb
+
+Mot de passe : 
+8uF4Xb8a
+
+Adresse du serveur :
+oyststaggboyst.mysql.db
+
+Nom de la base :
+oyststaggboyst
+
+Nom d'utilisateur
+oyststaggboyst
+
+Mot de passe : 
+8uF4Xb8a
+
+
+
+------
+
+
+Serveur FTP :
+ftp://qaoystcovb@ftp.cluster021.hosting.ovh.net:21/ 
+
+Chemin du répertoire home :
+/home/qaoystcovb
+
+Login :
+qaoystcovb
+
+Mot de passe :
+8jg87sUD
+
+Adresse du serveur :
+qaoystcovboyst.mysql.db
+
+Nom de la base :
+qaoystcovboyst
+
+Nom d'utilisateur
+qaoystcovboyst
+
+Mot de passe : 
+8jg87sUD

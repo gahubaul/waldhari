@@ -6,7 +6,8 @@ const app = express()
 const port = process.env.PORT || 8080;
 const DomParser = require('dom-parser');
 // const parser = new DomParser();
-const fs = require('file-system')
+const fs = require('fs')
+const lib = require(__dirname + '/module.js')
 
 
 
@@ -15,17 +16,18 @@ app.use(express.static(__dirname + '/public')) // static CSS
 app.use(express.static(__dirname + '/views')) // static HTML
 
 
+
 app.get('/', function(req, res) {
-    res.sendFile('page.ejs')
-});
+    lib.sendFile(req, res, '/views/page.ejs')
+})
 
 app.get('/test', function(req, res) {
     res.send('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
-});
+})
 
 app.get('/home', function(req, res) {
     res.send('Hé ho, c\'est privé ici !');
-});
+})
 
 app.post('/upload', function(req, res) {
     if (!req.files)
@@ -36,14 +38,13 @@ app.post('/upload', function(req, res) {
         console.log({err})
         if (err)
             return res.status(500).send(err)
-        res.sendFile('page_upload.ejs')
+        lib.sendFile(req, res, '/views/page_parsing_success.ejs')
     })
 })
 
 app.get('/read', (req, res) => {
-    fs.readFile(__dirname + '/Notes-unparsed/' + 'Notes Sapiens.html', 'utf8', function(err, html){
+    fs.readFile(__dirname + '/Notes-unparsed/Notes Sapiens.html', 'utf8', function(err, html){
         if (!err) {
-            // const dom = parser.parseFromString(html, 'text/html');
             const tab = html.match(/noteText'>(.+)</gm)
             const test = tab.map(o => o.match(/>(.+)</gm)[0].match(/[^<>]+/gm)[0])
             let body = ''
@@ -58,7 +59,7 @@ app.get('/read', (req, res) => {
 app.use(function(req, res, next){
     res.setHeader('Content-Type', 'text/html')
     res.status(404)
-    res.sendFile('404_error_template.ejs');
-});
+    lib.sendFile(req, res, '/views/404_error_template.ejs')
+})
 
-app.listen(port);
+app.listen(port)
