@@ -15,11 +15,7 @@ app.use(fileUpload())
 // app.use('/static', express.static(__dirname + '/public'))
 // app.use('/views', express.static(__dirname + '/public'))
 
-app.use(express.static('public'))
-
-
-
-
+app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(req, res) {
     lib.sendFile(req, res, '/views/page.ejs')
