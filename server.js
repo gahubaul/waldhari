@@ -15,18 +15,22 @@ app.use(fileUpload())
 // app.use('/static', express.static(__dirname + '/public'))
 // app.use('/views', express.static(__dirname + '/public'))
 
-app.use(express.static('public'));
+app.use(express.static('public'))
+
+
+
+
 
 app.get('/', function(req, res) {
     lib.sendFile(req, res, '/views/page.ejs')
 })
 
 app.get('/test', function(req, res) {
-    res.send('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
+    res.send('Vous êtes dans la cave à vins, ces bouteilles sont à moi !')
 })
 
 app.get('/home', function(req, res) {
-    res.send('Hé ho, c\'est privé ici !');
+    res.send('Hé ho, c\'est privé ici !')
 })
 
 app.post('/upload', function(req, res) {
