@@ -1,25 +1,22 @@
 const express = require('express')
+const path = require('path')
 const multer = require('multer')
 const fileUpload = require('express-fileupload');
 const upload = multer()
 const app = express()
 const port = process.env.PORT || 8080;
 const DomParser = require('dom-parser');
-// const parser = new DomParser();
 const fs = require('fs')
-const lib = require(__dirname + '/module.js')
+const lib = require('./module')
 
 
 
 app.use(fileUpload())
-// app.use('/static', express.static(__dirname + '/public'))
-// app.use('/views', express.static(__dirname + '/public'))
-
-app.use(express.static(__dirname + '/public'))
-app.use('/static', express.static(__dirname + '/public'))
+app.use(express.static(path.join(__dirname, '../public')))
 
 app.get('/', function(req, res) {
-    lib.sendFile(req, res, '/views/page.ejs')
+    const way = path.join(__dirname, '../views/page.ejs')
+    lib.sendFile(req, res, way)
 })
 
 app.get('/test', function(req, res) {
@@ -38,19 +35,22 @@ app.post('/upload', function(req, res) {
     sampleFile.mv(__dirname + '/Notes-unparsed/' + req.files.sampleFile.name, function(err) {
         if (err)
             return res.status(500).send(err)
-        lib.sendFile(req, res, '/views/page_parsing_success.ejs')
+        lib.sendFile(req, res, '../views/page_parsing_success.ejs')
     })
 })
 
 app.get('/read', (req, res) => {
-    fs.readFile(__dirname + '/Notes-unparsed/Notes Sapiens.html', 'utf8', function(err, html){
+
+    const file = path.join(__dirname, '../Notes-unparsed/Notes Sapiens.html')
+    fs.readFile(file, 'utf8', function(err, html){
         if (!err) {
             const tab = html.match(/noteText'>(.+)</gm)
             const test = tab.map(o => o.match(/>(.+)</gm)[0].match(/[^<>]+/gm)[0])
             let body = ''
-            test.forEach(element => {
-                body += `${element}<br>`
-            })
+            test.map(o => body += `${o}<br>`)
+
+
+
             res.send(body)
         }
     })
@@ -59,7 +59,9 @@ app.get('/read', (req, res) => {
 app.use(function(req, res, next){
     res.setHeader('Content-Type', 'text/html')
     res.status(404)
-    lib.sendFile(req, res, '/views/404_error_template.ejs')
+    const way = path.join(__dirname, '../views/404_error_template.ejs')
+    lib.sendFile(req, res, way)
 })
 
 app.listen(port)
+
