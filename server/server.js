@@ -12,7 +12,7 @@ const lib = require('./module')
 
 
 app.use(fileUpload())
-app.use(express.static(path.join(__dirname, '../public')))
+// app.use(express.static(path.join(__dirname, '../public')))
 
 app.get('/', function(req, res) {
     const way = path.join(__dirname, '../views/page.ejs')
