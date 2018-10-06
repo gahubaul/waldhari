@@ -37,27 +37,24 @@ app.post('/upload', function(req, res) {
         return res.status(400).send('No files were uploaded.')
     let sampleFile = req.files.sampleFile
     console.log(__dirname)
-    sampleFile.mv(__dirname + '/Notes-unparsed/' + req.files.sampleFile.name, function(err) {
-        if (err)
-            return res.status(500).send(err)
-        lib.sendFile(req, res, 'views/page_parsing_success.ejs')
-    })
-})
-
-app.get('/read', (req, res) => {
-    const file = path.join(__dirname, '/Notes-unparsed/Notes Sapiens.html')
+    const file = __dirname + '/Notes-unparsed/' + req.files.sampleFile.name
+    sampleFile.mv(file, function(err) { if (err) { return res.status(500).send(err) }})
     fs.readFile(file, 'utf8', function(err, html){
         if (!err) {
             const tab = html.match(/noteText'>(.+)</gm)
             const test = tab.map(o => o.match(/>(.+)</gm)[0].match(/[^<>]+/gm)[0])
-            let body = ''
-            test.map(o => body += `${o}<br>`)
-
-
-
+            let vocabulary = []
+            let quotes = []
+            test.map(o => (o.split(' ').length > 6) ? quotes.push(o): vocabulary.push(o))
+            
+            let body = '<br><br>Vocabulary<br><br>'
+            vocabulary.map(o => body += `${o}<br>`)
+            body += '<br><br>Quotes<br><br>'
+            quotes.map(o => body += `${o}<br>`)
             res.send(body)
         }
     })
+    fs.unlinkSync(file);
 })
 
 app.use(function(req, res, next){
