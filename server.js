@@ -56,10 +56,10 @@ app.use(function(req, res, next){
     res.setHeader('Content-Type', 'text/html')
     res.status(404)
     const src = {'src':[
-        'https://i.giphy.com/media/l0HlTHgnDtIhkoZOg/giphy.webp',
-        'https://i.giphy.com/media/l0HlSaBOVulBlVOgM/giphy.webp',
-        'https://i.giphy.com/media/3o6ZtmsRaGrM46YWaI/giphy.webp',
-        'https://i.giphy.com/media/l41m4ODfe8PwHlsUU/giphy.webp'
+        'https://i.giphy.com/media/l0HlTHgnDtIhkoZOg/giphy.gif',
+        'https://i.giphy.com/media/l0HlSaBOVulBlVOgM/giphy.gif',
+        'https://i.giphy.com/media/3o6ZtmsRaGrM46YWaI/giphy.gif',
+        'https://i.giphy.com/media/l41m4ODfe8PwHlsUU/giphy.gif'
     ]}
     const random = src.src[Math.floor(Math.random() * src.src.length)];
     res.render('404_error_template', { src: random})
