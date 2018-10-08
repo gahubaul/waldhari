@@ -61,7 +61,6 @@ app.use(function(req, res, next){
         'https://i.giphy.com/media/3o6ZtmsRaGrM46YWaI/giphy.webp',
         'https://i.giphy.com/media/l41m4ODfe8PwHlsUU/giphy.webp'
     ]}
-    console.log(src)
     const random = src.src[Math.floor(Math.random() * src.src.length)];
     res.render('404_error_template', { src: random})
 })

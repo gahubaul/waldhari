@@ -19,4 +19,20 @@ body > div {
 
 #image404{
     width: 70vw;
+    max-width: 550px;
+    border-radius: 7px;
+    box-shadow: 0px 0px 23px black;
+}
+
+div > h1 {
+
+    font-size: 130px;
+    margin: 0px;
+    color: azure;
+}
+
+div > span {
+    display: block;
+    color: azure;
+    font-size: 25px
 }
