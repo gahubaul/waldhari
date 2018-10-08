@@ -1,24 +1,21 @@
 const express = require('express')
 const path = require('path')
-const multer = require('multer')
-const fileUpload = require('express-fileupload');
-const DomParser = require('dom-parser');
+const fileUpload = require('express-fileupload')
 const fs = require('fs')
 const lib = require('./server/module')
-const serveStatic = require('serve-static')
-
-
-const upload = multer()
 const app = express()
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080
 
 
+// SET VIEW TEMPLATE  ===> EJS 
+app.set('view engine', 'ejs')
+
+// USE SECTION
 app.use(fileUpload())
-// app.use(express.static(path.join(__dirname, 'public')))
-console.log(path.join(__dirname, './public'))
+app.use('/assets', express.static('public'))
 
-app.use(serveStatic(path.join(__dirname, './public')))
 
+// ROUTE WEB SITE
 app.get('/', function(req, res) {
     const way = path.join(__dirname, 'views/page.ejs')
     lib.sendFile(req, res, way)
